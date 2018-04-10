@@ -7,15 +7,19 @@ export default class App extends React.Component {
       uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
     };
     return (
-      <View style={styles.container}>
-        <Image source={pic} style={{width: 193, height: 110}}/>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-        <Greeting name='Rexxar' />
-        <Greeting name='Jaina' />
-        <Greeting name='Valeera' />
-        <Blink text='I love to blink' />
+      <View style={{flex:1}}>
+      	<View style={{flex:1, backgroundColor:'#1122bb', alignItems: 'center', justifyContent: 'center',}}>
+          <Image source={pic} style={{width: 193, height: 110}}/>
+        </View>
+        <View style={{flex:1}}>
+          <Text>Open up App.js to start working on your app!</Text>
+          <Text>Changes you make will automatically reload.</Text>
+          <Text>Shake your phone to open the developer menu.</Text>
+          <Greeting name='Rexxar' />
+          <Greeting name='Jaina' />
+          <Greeting name='Valeera' />
+          <Blink text='I love to blink' />
+        </View>
       </View>
     );
   }
@@ -60,7 +64,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   bigblue: {
-    color: 'blue',
+    color: 'skyblue',
     fontWeight: 'bold',
     fontSize: 30,
   },
