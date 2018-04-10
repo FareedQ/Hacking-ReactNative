@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, AppRegistry, Image, Alert, Button,  TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import { StyleSheet, Text, TextInput, View, AppRegistry, Image, Alert, Button,  TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback, ScrollView, FlatList, SectionList } from 'react-native';
 
 export default class App extends React.Component {
   render() {
@@ -9,7 +9,7 @@ export default class App extends React.Component {
   
     return (
       <View style={{flex:1}}>
-          <IScrolledDownAndWhatHappenedNextShockedMe />
+          <SectionListBasics />
       </View>
     );
   }
@@ -164,6 +164,46 @@ class IScrolledDownAndWhatHappenedNextShockedMe extends Component {
   }
 }
 
+class FlatListBasics extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <FlatList
+          data={[
+            {key: 'Devin'},
+            {key: 'Jackson'},
+            {key: 'James'},
+            {key: 'Joel'},
+            {key: 'John'},
+            {key: 'Jillian'},
+            {key: 'Jimmy'},
+            {key: 'Julie'},
+          ]}
+          renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+        />
+      </View>
+    );
+  }
+}
+
+class SectionListBasics extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <SectionList
+          sections={[
+            {title: 'D', data: ['Devin']},
+            {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
+          ]}
+          renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
+          renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
+          keyExtractor={(item, index) => index}
+        />
+      </View>
+    );
+  }
+}
+
 AppRegistry.registerComponent('AwesomeProject', () => App);
 
 const styles = StyleSheet.create({
@@ -196,5 +236,19 @@ const styles = StyleSheet.create({
   buttonText: {
     padding: 20,
     color: 'white'
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
+  sectionHeader: {
+    paddingTop: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 2,
+    fontSize: 14,
+    fontWeight: 'bold',
+    backgroundColor: 'rgba(247,247,247,1.0)',
   }
 });
