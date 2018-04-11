@@ -1,19 +1,37 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, AppRegistry, Image, Alert, Button,  TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback, ScrollView, FlatList, SectionList, ActivityIndicator } from 'react-native';
+import { 
+  	NavigatorIOS,
+  	StyleSheet, 
+	Text, 
+	TextInput, 
+	View, 
+	AppRegistry, 
+	Image, 
+	Alert, 
+	Button,  
+	TouchableHighlight, 
+	TouchableOpacity, 
+	TouchableNativeFeedback, 
+	TouchableWithoutFeedback, 
+	ScrollView, 
+	FlatList, 
+	SectionList, 
+	ActivityIndicator } from 'react-native';
+import ContentView from './ContentView';
 
-export default class App extends React.Component {
+export default class NavController extends React.Component {
   render() {
-    let pic = {
-      uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
-    };
-  
     return (
-      <View style={{flex:1}}>
-          <FetchExample />
-      </View>
+      <NavigatorIOS
+        style={styles.container}
+        initialRoute={{
+          title: 'React Native Playground',
+          component: ContentView,
+        }}/>
     );
   }
 }
+
 
 class PizzaTranslator extends Component {
   constructor(props) {
@@ -164,101 +182,19 @@ class IScrolledDownAndWhatHappenedNextShockedMe extends Component {
   }
 }
 
-class FlatListBasics extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <FlatList
-          data={[
-            {key: 'Devin'},
-            {key: 'Jackson'},
-            {key: 'James'},
-            {key: 'Joel'},
-            {key: 'John'},
-            {key: 'Jillian'},
-            {key: 'Jimmy'},
-            {key: 'Julie'},
-          ]}
-          renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-        />
-      </View>
-    );
-  }
-}
-
-class SectionListBasics extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <SectionList
-          sections={[
-            {title: 'D', data: ['Devin']},
-            {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
-          ]}
-          renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
-          renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-          keyExtractor={(item, index) => index}
-        />
-      </View>
-    );
-  }
-}
-
-class FetchExample extends React.Component {
-
-  constructor(props){
-    super(props);
-    this.state ={ isLoading: true}
-  }
-
-  componentDidMount(){
-    return fetch('https://facebook.github.io/react-native/movies.json')
-      .then((response) => response.json())
-      .then((responseJson) => {
-
-        this.setState({
-          isLoading: false,
-          dataSource: responseJson.movies,
-        }, function(){
-
-        });
-
-      })
-      .catch((error) =>{
-        console.error(error);
-      });
-  }
-
-
-
-  render(){
-
-    if(this.state.isLoading){
-      return(
-        <View style={{flex: 1, padding: 20}}>
-          <ActivityIndicator/>
-        </View>
-      )
-    }
-
-    return(
-      <View style={{flex: 1, paddingTop:20}}>
-        <FlatList
-          data={this.state.dataSource}
-          renderItem={({item}) => <Text>{item.title}, {item.releaseYear}</Text>}
-          keyExtractor={(item, index) => index}
-        />
-      </View>
-    );
-  }
-}
-
-AppRegistry.registerComponent('AwesomeProject', () => App);
-
 const styles = StyleSheet.create({
+  contentView: {
+   flex: 1,
+   paddingTop:60,
+  },
   container: {
    flex: 1,
-   justifyContent: 'center',
+  },
+  myButton: {
+  	padding: 20,
+  	backgroundColor: '#b2f333',
+  	borderWidth: 2,
+  	borderColor: '#cccccc',
   },
   buttonContainer: {
     margin: 20
@@ -299,5 +235,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     backgroundColor: 'rgba(247,247,247,1.0)',
+  },
+  loginScreenButton:{
+    marginRight:40,
+    marginLeft:40,
+    marginTop:10,
+    paddingTop:10,
+    paddingBottom:10,
+    backgroundColor:'#1E6738',
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#fff',
+  },
+  loginText:{
+      color:'#fff',
+      textAlign:'center',
+      paddingLeft : 10,
+      paddingRight : 10
   }
 });
