@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
-  
+  	StyleSheet, 
+	Text, 
 	} from 'react-native';
 
 class Blink extends Component {
@@ -23,3 +24,12 @@ class Blink extends Component {
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  bigblue: {
+    color: 'skyblue',
+    fontWeight: 'bold',
+    fontSize: 30,
+  },
+});
