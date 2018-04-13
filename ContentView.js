@@ -9,6 +9,7 @@ import {
   Button,
   FlatList, 
   TouchableHighlight, 
+  Image,
 } from 'react-native';
 import hello from './hello';
 
@@ -32,7 +33,7 @@ export default class ContentView extends Component<{}> {
         <View style={styles.rowContainer}>
   		 <FlatList
           data={[
-            {key: 'Devin'},
+            {key: 'Devin', image: ''},
             {key: 'Jackson'},
             {key: 'James'},
             {key: 'Joel'},
@@ -59,6 +60,7 @@ class ListItem extends React.PureComponent {
     return (
         <View>
           <View style={styles.rowContainer}>
+          	<Image source={{uri:"https://static1.squarespace.com/static/5534792ee4b0aca1f6648401/5a11f83b0d9297779571897d/5a43c6bd652dea22a557a7fa/1514391246257/05-Kendra.jpg"}} style={{width: 78, height: 110}}/>
             <TouchableHighlight onPress={this._onPress} underlayColor='#dddddd' style={styles.buttonContainer}>
               <Text style={styles.title}
                 numberOfLines={1}>{item.key}</Text>
