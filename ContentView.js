@@ -14,6 +14,31 @@ import {
 import hello from './hello';
 
 export default class ContentView extends Component<{}> {
+  constructor(props){
+    super(props);
+    this.state ={ isLoading: true}
+  }
+  
+  componentDidMount(){
+    return fetch('https://genesis-online.herokuapp.com/cards')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        var compiledData = []
+        for (var i=1; i <= Object.keys(responseJson).length; i++) {
+        	compiledData.push(responseJson[i.toString()]);
+    	} 
+        this.setState({
+          isLoading: false,
+          dataSource: compiledData,
+        }, function(){
+
+        });
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+    }
 
 	_navigateToNextPage = () => {
 	    this.props.navigator.push({title: 'Results', component: hello, passProps: {}});
@@ -28,21 +53,21 @@ export default class ContentView extends Component<{}> {
 	};
 
   render() {
+    if(this.state.isLoading){
+      return(
+        <View style={{flex: 1, backgroundColor:'green'}}>
+        	<Text>Now Loading</Text>
+        </View>
+      )
+    }
+    
     return (
       <View style={styles.container}>
         <View style={styles.rowContainer}>
   		 <FlatList
-          data={[
-            {key: 'Devin', image: ''},
-            {key: 'Jackson'},
-            {key: 'James'},
-            {key: 'Joel'},
-            {key: 'John'},
-            {key: 'Jillian'},
-            {key: 'Jimmy'},
-            {key: 'Julie'},
-          ]}
+          data={this.state.dataSource}
           renderItem={this._renderItem}
+          keyExtractor={(item, index) => index.toString()}
         />
         </View>
       </View>
@@ -60,10 +85,10 @@ class ListItem extends React.PureComponent {
     return (
         <View>
           <View style={styles.rowContainer}>
-          	<Image source={{uri:"https://static1.squarespace.com/static/5534792ee4b0aca1f6648401/5a11f83b0d9297779571897d/5a43c6bd652dea22a557a7fa/1514391246257/05-Kendra.jpg"}} style={{width: 78, height: 110}}/>
+          	<Image source={{uri:item.picture}} style={{width: 78, height: 110}}/>
             <TouchableHighlight onPress={this._onPress} underlayColor='#dddddd' style={styles.buttonContainer}>
               <Text style={styles.title}
-                numberOfLines={1}>{item.key}</Text>
+                numberOfLines={1}>{item.name}</Text>
             </TouchableHighlight>
           </View>
           <View style={styles.separator}/>
@@ -76,6 +101,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flex:1,
+   paddingTop: 60,
   },
   separator: {
     height: 1,
